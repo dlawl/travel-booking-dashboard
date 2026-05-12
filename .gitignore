@@ -1,0 +1,44 @@
+# Nuxt
+.nuxt/
+.output/
+.data/
+.cache/
+dist/
+
+# Node
+node_modules/
+
+# Env - 절대 올리지 말것
+.env
+.env.local
+.env.*.local
+*.env
+
+# Claude
+.claude/
+CLAUDE.md
+.claude.json
+memory/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Credentials / Keys
+*.pem
+*.key
+*.cert
+*.p12
+secrets/
+credentials/
