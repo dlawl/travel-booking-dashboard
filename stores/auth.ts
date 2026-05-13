@@ -4,7 +4,7 @@ export interface AuthUser {
   id: string
   name: string
   email: string
-  role: 'admin' | 'manager'
+  role: 'admin'
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -19,10 +19,6 @@ export const useAuthStore = defineStore('auth', () => {
       'admin@travelco.com': {
         password: 'admin1234',
         user: { id: 'u-001', name: '관리자', email: 'admin@travelco.com', role: 'admin' },
-      },
-      'manager@travelco.com': {
-        password: 'manager1234',
-        user: { id: 'u-002', name: '매니저', email: 'manager@travelco.com', role: 'manager' },
       },
     }
 

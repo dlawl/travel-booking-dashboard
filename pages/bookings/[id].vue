@@ -1,18 +1,18 @@
 <template>
   <div class="p-6 space-y-5 max-w-3xl">
-    <!-- 뒤로가기 + 헤더 -->
-    <div class="flex items-center gap-3">
-      <NuxtLink to="/bookings"
-        class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <!-- 헤더 -->
+    <div class="space-y-2">
+      <NuxtLink
+        to="/bookings"
+        class="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-700 transition-colors group"
+      >
+        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
+        전체 예약
       </NuxtLink>
-      <div>
+      <div class="flex items-center justify-between">
         <h1 class="text-lg font-semibold text-slate-900">예약 상세</h1>
-        <p class="text-sm text-slate-400 font-mono">{{ booking?.id }}</p>
-      </div>
-      <div class="ml-auto flex items-center gap-2">
         <span v-if="booking" :class="['inline-flex items-center gap-1.5 text-xs font-medium', BOOKING_STATUS_COLOR[booking.status]]">
           <span class="w-1.5 h-1.5 rounded-full bg-current" />
           {{ BOOKING_STATUS_LABEL[booking.status] }}
@@ -32,18 +32,18 @@
         </div>
         <div class="grid grid-cols-2 divide-x divide-slate-100">
           <div class="px-5 py-4 space-y-4">
-            <InfoRow label="예약번호" :value="booking.id" mono />
-            <InfoRow label="예약 유형" :value="BOOKING_TYPE_LABEL[booking.type]" />
-            <InfoRow label="상품 · 노선" :value="booking.route" />
-            <InfoRow label="여행일" :value="booking.travelDate" />
+            <BaseInfoRow label="예약번호" :value="booking.id" mono />
+            <BaseInfoRow label="예약 유형" :value="BOOKING_TYPE_LABEL[booking.type]" />
+            <BaseInfoRow label="상품 · 노선" :value="booking.route" />
+            <BaseInfoRow label="여행일" :value="booking.travelDate" />
           </div>
           <div class="px-5 py-4 space-y-4">
-            <InfoRow label="예약자명" :value="booking.customerName" />
-            <InfoRow label="이메일" :value="booking.customerEmail" />
-            <InfoRow label="예약일" :value="booking.createdAt" />
-            <InfoRow label="결제금액">
+            <BaseInfoRow label="예약자명" :value="booking.customerName" />
+            <BaseInfoRow label="이메일" :value="booking.customerEmail" />
+            <BaseInfoRow label="예약일" :value="booking.createdAt" />
+            <BaseInfoRow label="결제금액">
               <span class="font-bold text-slate-900 tabular-nums">{{ booking.amount.toLocaleString() }}원</span>
-            </InfoRow>
+            </BaseInfoRow>
           </div>
         </div>
       </div>

@@ -124,6 +124,12 @@ travel-booking-dashboard/
 - Node.js 20.x 이상
 - npm 9.x 이상
 
+### 테스트 계정
+
+| 이메일 | 비밀번호 |
+|--------|----------|
+| admin@travelco.com | admin1234 |
+
 ### 설치 및 실행
 
 ```bash
