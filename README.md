@@ -54,61 +54,28 @@ B2B 파트너사 관리자(BO)와 일반 사용자(FO) 두 가지 화면을 하�
 ```
 travel-booking-dashboard/
 ├── pages/
-│   ├── index.vue                  # 메인 대시보드 (예약 현황 통계)
-│   ├── bookings/
-│   │   ├── index.vue              # 예약 목록 (항공·숙박·투어 탭)
-│   │   └── [id].vue               # 예약 상세 (결제·바우처 상태)
-│   ├── flights/
-│   │   └── search.vue             # 항공 검색 (GDS 연동)
-│   ├── hotels/
-│   │   └── search.vue             # 숙박 검색
-│   ├── vouchers/
-│   │   └── index.vue              # 바우처 발급·조회
-│   ├── settlements/
-│   │   └── index.vue              # 정산 내역
-│   └── admin/                     # B2B 관리자(BO) 전용
-│       ├── partners/              # 파트너사 관리
-│       ├── products/              # 상품 관리
-│       └── reports/               # 매출·정산 리포트
+│   └── index.vue                  # 메인 대시보드 (KPI 카드, 예약 현황, 최근 예약)
 ├── layouts/
-│   ├── default.vue                # FO 사용자 레이아웃
-│   └── admin.vue                  # BO 관리자 레이아웃
+│   └── default.vue                # 사이드바 + 헤더 공통 레이아웃
 ├── components/
-│   ├── ui/                        # 공통 UI 컴포넌트
-│   │   ├── BaseButton.vue
-│   │   ├── BaseInput.vue
-│   │   ├── BaseModal.vue
-│   │   └── BaseTable.vue
-│   ├── booking/                   # 예약 도메인 컴포넌트
-│   │   ├── BookingCard.vue
-│   │   ├── BookingStatusBadge.vue
-│   │   └── BookingFilterBar.vue
-│   └── dashboard/                 # 대시보드 위젯
-│       ├── StatCard.vue
-│       ├── BookingChart.vue
-│       └── RecentBookings.vue
-├── stores/
-│   ├── booking.ts                 # 예약 상태 (목록·필터·페이지네이션)
-│   ├── payment.ts                 # 결제 상태 (진행중·완료·실패)
-│   ├── auth.ts                    # 인증·권한 (FO/BO 역할 분리)
-│   └── ui.ts                      # 모달·토스트 등 UI 상태
-├── composables/
-│   ├── useBooking.ts              # 예약 CRUD + 상태 변경 로직
-│   ├── usePayment.ts              # 결제 처리 로직
-│   ├── useFlight.ts               # 항공 검색·조회
-│   └── useAuth.ts                 # 로그인·권한 체크
-├── types/
-│   ├── booking.ts                 # 예약 관련 타입 정의
-│   ├── flight.ts                  # 항공 데이터 타입
-│   ├── payment.ts                 # 결제 타입
-│   └── user.ts                    # 사용자·권한 타입
-├── middleware/
-│   ├── auth.ts                    # 인증 체크
-│   └── admin.ts                   # BO 관리자 권한 체크
-└── utils/
-    ├── format.ts                  # 날짜·금액·코드 포매터
-    └── api.ts                     # API 클라이언트 (useFetch 래퍼)
+│   ├── base/                      # 재사용 가능한 순수 UI 컴포넌트
+│   │   ├── BaseButton.vue         # 5가지 variant, 3가지 size, loading/disabled 상태
+│   │   ├── BaseBadge.vue          # 예약 상태 표시용 (success/warning/danger/info 등)
+│   │   ├── BaseInput.vue          # label, error, hint, prefix/suffix slot
+│   │   ├── BaseModal.vue          # Teleport 기반 모달, 애니메이션 포함
+│   │   └── BaseTable.vue          # 컬럼 설정 기반 테이블, slot으로 셀 커스터마이징
+│   └── layout/
+│       ├── AppSidebar.vue         # 다크 사이드바 네비게이션
+│       └── SidebarItem.vue        # 활성 라우트 하이라이트 포함 메뉴 아이템
+├── assets/
+│   └── scss/
+│       ├── main.scss              # Tailwind 진입점
+│       └── _variables.scss        # 디자인 토큰 (추후 확장)
+└── tailwind.config.js             # brand 컬러(sky) + accent 컬러 커스텀
 ```
+
+> **예정 구조** (구현 진행 중)
+> `stores/`, `composables/`, `types/`, `middleware/`, `utils/` 등은 다음 단계에서 추가됩니다.
 
 ---
 
@@ -208,15 +175,31 @@ FO와 BO는 각각 독립된 레이아웃(`default.vue`, `admin.vue`)을 사용�
 
 ## 📋 개발 로드맵
 
-- [x] 프로젝트 초기 설정 (Nuxt 3, TypeScript, Tailwind CSS, Pinia)
-- [ ] 공통 UI 컴포넌트 구현 (Button, Input, Table, Modal)
-- [ ] 인증 (로그인·로그아웃·권한 미들웨어)
-- [ ] 대시보드 메인 (통계 카드, 예약 현황 차트)
-- [ ] 예약 목록·상세 페이지
-- [ ] 항공 검색 UI
-- [ ] 결제·바우처 상태 관리
-- [ ] BO 관리자 화면 (예약 관리·정산 리포트)
-- [ ] GitHub Actions CI/CD 구성
+### 1단계 — 공통 UI 컴포넌트 ✅
+- [x] 프로젝트 초기 설정 (Nuxt 3, TypeScript, Tailwind CSS v3, Pinia)
+- [x] BaseButton — variant(5종), size(3종), loading/disabled 상태
+- [x] BaseBadge — 예약 상태별 색상 (success/warning/danger/info/neutral/purple)
+- [x] BaseInput — label, error, hint, required 표시
+- [x] BaseModal — Teleport 기반, 애니메이션, header/footer 슬롯
+- [x] BaseTable — 컬럼 config 기반, 셀 슬롯 커스터마이징, 클릭 이벤트
+- [x] AppSidebar — 다크 사이드바, 활성 라우트 하이라이트
+- [x] 대시보드 메인 — KPI 카드 4종, 상태 현황 바, 최근 예약 테이블
+
+### 2단계 — 예약 목록·상세 (진행 예정)
+- [ ] 예약 목록 페이지 — 항공/숙박/투어 탭, 상태 필터, 페이지네이션
+- [ ] 예약 상세 페이지 — 결제 정보, 바우처 상태
+- [ ] Pinia store 연동 (booking, ui)
+
+### 3단계 — 인증·권한
+- [ ] 로그인 페이지
+- [ ] auth 미들웨어 (FO/BO 역할 분리)
+
+### 4단계 — 정산·리포트
+- [ ] 결제 현황 페이지
+- [ ] 정산 리포트 (차트 포함)
+
+### 5단계 — 배포·CI/CD
+- [ ] GitHub Actions 워크플로우
 - [ ] AWS Amplify 배포
 
 ---

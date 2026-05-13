@@ -4,7 +4,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
     '@nuxt/eslint',
   ],
 
@@ -14,6 +13,13 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/scss/main.scss'],
+
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
 
   runtimeConfig: {
     public: {
