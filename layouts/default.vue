@@ -17,8 +17,20 @@
             </svg>
             <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-500 rounded-full" />
           </button>
-          <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-white text-xs font-bold cursor-pointer">
-            A
+          <div class="relative group">
+            <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-white text-xs font-bold cursor-pointer">
+              {{ auth.user?.name?.[0] ?? 'A' }}
+            </div>
+            <div class="absolute right-0 top-full mt-1 w-40 bg-white border border-slate-200 rounded-lg shadow-lg py-1 hidden group-hover:block z-50">
+              <p class="px-3 py-1.5 text-xs text-slate-400 truncate">{{ auth.user?.email }}</p>
+              <hr class="border-slate-100 my-1" />
+              <button
+                class="w-full text-left px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+                @click="handleLogout"
+              >
+                로그아웃
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -29,3 +41,15 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+
+const auth = useAuthStore()
+const router = useRouter()
+
+function handleLogout() {
+  auth.logout()
+  router.push('/login')
+}
+</script>

@@ -54,28 +54,36 @@ B2B 파트너사 관리자(BO)와 일반 사용자(FO) 두 가지 화면을 하�
 ```
 travel-booking-dashboard/
 ├── pages/
-│   └── index.vue                  # 메인 대시보드 (KPI 카드, 예약 현황, 최근 예약)
+│   ├── index.vue                  # 메인 대시보드 (KPI 카드, 예약 현황, 최근 예약)
+│   ├── login.vue                  # 로그인 페이지 (layout: false)
+│   └── bookings/
+│       ├── index.vue              # 예약 목록 (탭·필터·페이지네이션·모달)
+│       └── [id].vue               # 예약 상세 (결제 스텝퍼, 바우처, 취소)
 ├── layouts/
-│   └── default.vue                # 사이드바 + 헤더 공통 레이아웃
+│   └── default.vue                # 사이드바 + 헤더 + 로그아웃 드롭다운
+├── middleware/
+│   └── auth.global.ts             # 전역 인증 가드, localStorage 세션 복원
+├── stores/
+│   ├── auth.ts                    # 로그인·로그아웃·세션 복원 (Pinia)
+│   └── booking.ts                 # 예약 목록 필터·페이지·findById (Pinia)
+├── types/
+│   └── booking.ts                 # BookingStatus·BookingType 타입 + 레이블 맵
 ├── components/
-│   ├── base/                      # 재사용 가능한 순수 UI 컴포넌트
-│   │   ├── BaseButton.vue         # 5가지 variant, 3가지 size, loading/disabled 상태
-│   │   ├── BaseBadge.vue          # 예약 상태 표시용 (success/warning/danger/info 등)
-│   │   ├── BaseInput.vue          # label, error, hint, prefix/suffix slot
-│   │   ├── BaseModal.vue          # Teleport 기반 모달, 애니메이션 포함
-│   │   └── BaseTable.vue          # 컬럼 설정 기반 테이블, slot으로 셀 커스터마이징
+│   ├── base/
+│   │   ├── BaseButton.vue         # 5가지 variant, 3가지 size, loading/disabled
+│   │   ├── BaseBadge.vue          # success/warning/danger/info/neutral/purple
+│   │   ├── BaseInput.vue          # label, error, hint, required
+│   │   ├── BaseModal.vue          # Teleport 기반, header/footer 슬롯
+│   │   ├── BaseTable.vue          # 컬럼 config 기반, 셀 슬롯
+│   │   └── InfoRow.vue            # label + value 행 표시용
 │   └── layout/
 │       ├── AppSidebar.vue         # 다크 사이드바 네비게이션
-│       └── SidebarItem.vue        # 활성 라우트 하이라이트 포함 메뉴 아이템
-├── assets/
-│   └── scss/
-│       ├── main.scss              # Tailwind 진입점
-│       └── _variables.scss        # 디자인 토큰 (추후 확장)
-└── tailwind.config.js             # brand 컬러(sky) + accent 컬러 커스텀
+│       └── SidebarItem.vue        # 활성 라우트 하이라이트
+├── assets/scss/
+│   ├── main.scss                  # Tailwind 진입점
+│   └── _variables.scss            # 디자인 토큰
+└── tailwind.config.js             # brand(sky) + accent(orange) 커스텀 컬러
 ```
-
-> **예정 구조** (구현 진행 중)
-> `stores/`, `composables/`, `types/`, `middleware/`, `utils/` 등은 다음 단계에서 추가됩니다.
 
 ---
 
@@ -185,14 +193,15 @@ FO와 BO는 각각 독립된 레이아웃(`default.vue`, `admin.vue`)을 사용�
 - [x] AppSidebar — 다크 사이드바, 활성 라우트 하이라이트
 - [x] 대시보드 메인 — KPI 카드 4종, 상태 현황 바, 최근 예약 테이블
 
-### 2단계 — 예약 목록·상세 (진행 예정)
-- [ ] 예약 목록 페이지 — 항공/숙박/투어 탭, 상태 필터, 페이지네이션
-- [ ] 예약 상세 페이지 — 결제 정보, 바우처 상태
-- [ ] Pinia store 연동 (booking, ui)
+### 2단계 — 예약 목록·상세 ✅
+- [x] 예약 목록 페이지 — 항공/숙박/투어 탭, 상태 필터, 페이지네이션
+- [x] 예약 상세 페이지 — 결제 스텝퍼, 바우처 상태, 취소 버튼
+- [x] Pinia store 연동 (booking — 필터, 페이지, findById)
 
-### 3단계 — 인증·권한
-- [ ] 로그인 페이지
-- [ ] auth 미들웨어 (FO/BO 역할 분리)
+### 3단계 — 인증·권한 ✅
+- [x] 로그인 페이지 — 이메일/비밀번호 폼, 유효성 검사, 로딩 상태
+- [x] auth.global 미들웨어 — 미인증 시 /login 리다이렉트, localStorage 세션 복원
+- [x] 로그아웃 — 헤더 드롭다운에서 토큰·세션 삭제 후 /login 이동
 
 ### 4단계 — 정산·리포트
 - [ ] 결제 현황 페이지
