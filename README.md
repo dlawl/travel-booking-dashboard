@@ -89,7 +89,7 @@ npm install
 npm run dev
 ```
 
-개발 서버: http://localhost:3000
+개발 서버: https://travelbookingsproject.netlify.app/
 
 ### 빌드
 
