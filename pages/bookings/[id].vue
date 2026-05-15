@@ -11,7 +11,7 @@
         </svg>
         전체 예약
       </NuxtLink>
-      <div class="flex items-center justify-between">
+구현도      <div class="flex items-center justify-between">
         <h1 class="text-lg font-semibold text-slate-900">예약 상세</h1>
         <span v-if="booking" :class="['inline-flex items-center gap-1.5 text-xs font-medium', BOOKING_STATUS_COLOR[booking.status]]">
           <span class="w-1.5 h-1.5 rounded-full bg-current" />
