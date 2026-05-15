@@ -48,9 +48,6 @@
           로그인
         </BaseButton>
 
-        <p class="text-xs text-slate-400 text-center">
-          테스트 계정: admin@travelco.com / admin1234
-        </p>
       </div>
     </div>
   </div>
