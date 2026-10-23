@@ -9,6 +9,17 @@
 
 ---
 
+## 배포 · 데모 계정
+
+배포 사이트: https://travelbookingsproject.netlify.app/
+
+아래 계정으로 로그인할 수 있습니다. (Mock 인증 — 실제 서버 없음)
+
+- 이메일: admin@travelco.com
+- 비밀번호: admin1234
+
+---
+
 ## 기술 스택
 
 ### Core
@@ -77,8 +88,8 @@ travel-booking-dashboard/
 ## 시작하기
 
 ### 요구사항
-- Node.js 20.x 이상
-- npm 9.x 이상
+- Node.js 22 (20.19 이상)
+- npm 10.x 이상
 
 ### 설치 및 실행
 
@@ -89,7 +100,7 @@ npm install
 npm run dev
 ```
 
-개발 서버: https://travelbookingsproject.netlify.app/
+로컬 개발 서버: http://localhost:3000
 
 ### 빌드
 
